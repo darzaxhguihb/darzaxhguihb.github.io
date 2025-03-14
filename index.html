@@ -31,7 +31,8 @@
             z-index: 1000; /* Asegura que esté por encima de otros elementos */
         }
         .chat-container {
-            width: 360px;
+            width: 90%;
+            max-width: 400px; /* Limita el ancho máximo */
             height: 450px;
             background-color: #b0e0e6; /* Fondo gris azulado */
             border-radius: 10px;
@@ -39,6 +40,7 @@
             display: flex;
             flex-direction: column;
             margin-top: 20px;
+            margin-bottom: 80px; /* Espacio para el footer */
         }
         .chat-header {
             background-color: #4682b4; /* Azul marino */
@@ -113,6 +115,26 @@
             position: fixed;
             bottom: 0;
         }
+
+        /* Media Queries para hacer el diseño responsive */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            .chat-container {
+                width: 95%; /* Ajusta el contenedor en pantallas pequeñas */
+                height: 400px; /* Reducir la altura para adaptarse mejor a la pantalla */
+            }
+            .chat-header {
+                font-size: 16px;
+            }
+            .chat-input input {
+                font-size: 12px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -159,7 +181,7 @@
             'ejercicio para ninos': 'Juegos activos, natacion y deportes son excelentes para ninos.',
             'que es el HIIT': 'El HIIT es un entrenamiento de alta intensidad con intervalos cortos de descanso.',
             'actividad fisica recomendada': 'Se recomienda al menos 150 minutos de actividad moderada a la semana.',
-            
+
             // Salud
             'salud': 'La salud es el estado de bienestar fisico, mental y social. ¿Quieres consejos sobre habitos saludables?',
             'nutricion saludable': 'Una alimentacion balanceada, rica en frutas, verduras, proteinas magras y carbohidratos complejos es fundamental para la salud.',
