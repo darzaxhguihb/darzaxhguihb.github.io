@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Métodos de Pago Guardados | NATURE</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+   <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="metodo-pago.html">Volver</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="lista" id="lista-metodos">
+    <!-- Aquí se mostrarán los métodos -->
+  </main>
+
+  <script>
+    const lista = document.getElementById('lista-metodos');
+    const metodos = JSON.parse(localStorage.getItem('metodosPago')) || [];
+
+    if (metodos.length === 0) {
+      lista.innerHTML = '<p>No hay métodos de pago guardados.</p>';
+    } else {
+      metodos.forEach((metodo, index) => {
+        const div = document.createElement('div');
+        div.className = 'metodo-guardado';
+
+        let html = `<p class="tipo">Método: ${metodo.tipo}</p>`;
+
+        if (metodo.tipo === 'tarjeta') {
+          html += `
+            <p>Nombre: ${metodo.nombre}</p>
+            <p>Tarjeta: **** **** **** ${metodo.tarjeta.slice(-4)}</p>
+            <p>Expira: ${metodo.expiracion}</p>
+          `;
+        } else if (metodo.tipo === 'efectivo') {
+          html += `<p>Código de barras: ${metodo.codigo}</p>`;
+        } else if (metodo.tipo === 'paypal' || metodo.tipo === 'mercado') {
+          html += `<p>Correo: ${metodo.correo}</p>`;
+        }
+
+        html += `<button onclick="eliminarMetodo(${index})">Eliminar</button>`;
+
+        div.innerHTML = html;
+        lista.appendChild(div);
+      });
+    }
+
+    function eliminarMetodo(index) {
+      const metodos = JSON.parse(localStorage.getItem('metodosPago')) || [];
+      metodos.splice(index, 1);
+      localStorage.setItem('metodosPago', JSON.stringify(metodos));
+      location.reload();
+    }
+  </script>
+</body>
+</html>

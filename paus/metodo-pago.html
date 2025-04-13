@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Método de Pago | NATURE</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+   <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="mas.html">Volver</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+    <form id="formulario-pago">
+      <label for="tipo">Tipo de pago:</label>
+      <select id="tipo" required>
+        <option value="">Seleccione una opción</option>
+        <option value="tarjeta">Tarjeta de crédito / débito</option>
+        <option value="efectivo">Efectivo</option>
+        <option value="paypal">PayPal</option>
+        <option value="mercado">Mercado Pago</option>
+      </select>
+
+      <!-- FORM TARJETA -->
+      <div id="tarjeta-form" style="display:none;">
+        <label for="nombre">Nombre en la tarjeta:</label>
+        <input type="text" id="nombre">
+
+        <label for="tarjeta">Número de tarjeta:</label>
+        <input type="text" id="tarjeta" maxlength="16">
+
+        <label for="expiracion">Fecha de expiración:</label>
+        <input type="month" id="expiracion">
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" maxlength="4">
+      </div>
+
+      <!-- FORM EFECTIVO -->
+      <div id="efectivo-form" style="display:none;">
+        <p>Tu código de barras es:</p>
+        <div id="codigo-barras"></div>
+      </div>
+
+      <!-- FORM PAYPAL -->
+      <div id="paypal-form" style="display:none;">
+        <label for="paypal-correo">Correo electrónico de PayPal:</label>
+        <input type="email" id="paypal-correo">
+      </div>
+
+      <!-- FORM MERCADO -->
+      <div id="mercado-form" style="display:none;">
+        <label for="mercado-correo">Correo electrónico de Mercado Pago:</label>
+        <input type="email" id="mercado-correo">
+      </div>
+
+      <button type="submit">Guardar método de pago</button>
+    </form>
+
+<div style="margin-top: 1.5rem; text-align: center;">
+      <a href="ver-metodos.html">
+        <button style="padding: 0.8rem 1.2rem;">Ver usuarios registrados</button>
+
+  </main>
+
+  <script>
+    const tipo = document.getElementById('tipo');
+    const tarjetaForm = document.getElementById('tarjeta-form');
+    const efectivoForm = document.getElementById('efectivo-form');
+    const paypalForm = document.getElementById('paypal-form');
+    const mercadoForm = document.getElementById('mercado-form');
+    const codigoBarras = document.getElementById('codigo-barras');
+
+    const nombreInput = document.getElementById('nombre');
+    const tarjetaInput = document.getElementById('tarjeta');
+    const expiracionInput = document.getElementById('expiracion');
+    const cvvInput = document.getElementById('cvv');
+    const paypalCorreoInput = document.getElementById('paypal-correo');
+    const mercadoCorreoInput = document.getElementById('mercado-correo');
+
+    tipo.addEventListener('change', () => {
+      tarjetaForm.style.display = 'none';
+      efectivoForm.style.display = 'none';
+      paypalForm.style.display = 'none';
+      mercadoForm.style.display = 'none';
+
+      if (tipo.value === 'tarjeta') {
+        tarjetaForm.style.display = 'block';
+      } else if (tipo.value === 'efectivo') {
+        efectivoForm.style.display = 'block';
+        const codigo = Math.floor(100000000000 + Math.random() * 900000000000);
+        codigoBarras.textContent = codigo;
+      } else if (tipo.value === 'paypal') {
+        paypalForm.style.display = 'block';
+      } else if (tipo.value === 'mercado') {
+        mercadoForm.style.display = 'block';
+      }
+    });
+
+    document.getElementById('formulario-pago').addEventListener('submit', e => {
+      e.preventDefault();
+
+      const metodo = { tipo: tipo.value };
+
+      if (tipo.value === 'tarjeta') {
+        metodo.nombre = nombreInput.value;
+        metodo.tarjeta = tarjetaInput.value;
+        metodo.expiracion = expiracionInput.value;
+        metodo.cvv = cvvInput.value;
+      } else if (tipo.value === 'efectivo') {
+        metodo.codigo = codigoBarras.textContent;
+      } else if (tipo.value === 'paypal') {
+        metodo.correo = paypalCorreoInput.value;
+      } else if (tipo.value === 'mercado') {
+        metodo.correo = mercadoCorreoInput.value;
+      }
+
+      // Validar campos visibles
+      if (tipo.value === '') {
+        alert('Selecciona un método válido.');
+        return;
+      }
+
+      let metodos = JSON.parse(localStorage.getItem('metodosPago')) || [];
+      metodos.push(metodo);
+      localStorage.setItem('metodosPago', JSON.stringify(metodos));
+
+      alert('Método de pago guardado correctamente.');
+      document.getElementById('formulario-pago').reset();
+
+      tarjetaForm.style.display = 'none';
+      efectivoForm.style.display = 'none';
+      paypalForm.style.display = 'none';
+      mercadoForm.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

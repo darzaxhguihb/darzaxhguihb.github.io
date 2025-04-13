@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión | NATURE</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="mas.html">Volver</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="formulario">
+    <form onsubmit="iniciarSesion(event)">
+      <label>Correo electrónico:</label>
+      <input type="email" id="correo" required>
+
+      <label>Contraseña:</label>
+      <input type="password" id="contrasena" required>
+
+      <label>Teléfono:</label>
+      <input type="tel" id="telefono" required>
+
+      <label>Dirección:</label>
+      <input type="text" id="direccion" required>
+
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <div style="margin-top: 1.5rem; text-align: center;">
+      <a href="usuarios.html">
+        <button style="padding: 0.8rem 1.2rem;">Ver usuarios registrados</button>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    function iniciarSesion(e) {
+      e.preventDefault();
+
+      const usuario = {
+        correo: document.getElementById('correo').value,
+        contrasena: document.getElementById('contrasena').value,
+        telefono: document.getElementById('telefono').value,
+        direccion: document.getElementById('direccion').value
+      };
+
+      let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      usuarios.push(usuario);
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+      alert("Inicio de sesión guardado (simulado).");
+      document.querySelector("form").reset();
+    }
+  </script>
+</body>
+</html>
