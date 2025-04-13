@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historial | NATURE</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="mas.html">Volver</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="historial">
+    <section id="lista-historial" class="productos"></section>
+  </main>
+
+  <script>
+    const historial = JSON.parse(localStorage.getItem('historialCompras')) || [];
+
+    const lista = document.getElementById("lista-historial");
+
+    if (historial.length === 0) {
+      lista.innerHTML = "<p>No has realizado compras aún.</p>";
+    } else {
+      historial.forEach(producto => {
+        const card = document.createElement("div");
+        card.className = "producto";
+        card.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <h2>${producto.nombre}</h2>
+          <p>$${producto.precio}</p>
+        `;
+        lista.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

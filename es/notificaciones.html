@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NATURE | Notificaciones</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="inicio.html">Inicio</a>
+      <a href="carrito.html">Carrito</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="notificaciones.html">Notificaciones</a>
+      <a href="mas.html">Más</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main>
+    <section id="notificaciones" class="notificaciones"></section>
+    <div class="acciones">
+      <button onclick="marcarTodasLeidas()">Marcar todas como leídas</button>
+      <button onclick="borrarNotificaciones()">Borrar todas</button>
+    </div>
+  </main>
+
+  <script>
+    let notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || [];
+
+    function mostrarNotificaciones() {
+      const contenedor = document.getElementById('notificaciones');
+      contenedor.innerHTML = "";
+
+      if (notificaciones.length === 0) {
+        contenedor.innerHTML = "<p>No tienes notificaciones.</p>";
+        return;
+      }
+
+      notificaciones.forEach((n, index) => {
+        const div = document.createElement('div');
+        div.className = 'notificacion' + (n.leida ? ' leida' : '');
+        div.innerHTML = `
+          <h3>${n.titulo}</h3>
+          <p>${n.mensaje}</p>
+          <small>${n.fecha}</small>
+          <button onclick="marcarLeida(${index})">Marcar como leída</button>
+          <button onclick="eliminar(${index})">Eliminar</button>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    function marcarLeida(index) {
+      notificaciones[index].leida = true;
+      localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+      mostrarNotificaciones();
+    }
+
+    function marcarTodasLeidas() {
+      notificaciones.forEach(n => n.leida = true);
+      localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+      mostrarNotificaciones();
+    }
+
+    function eliminar(index) {
+      notificaciones.splice(index, 1);
+      localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+      mostrarNotificaciones();
+    }
+
+    function borrarNotificaciones() {
+      localStorage.removeItem('notificaciones');
+      notificaciones = [];
+      mostrarNotificaciones();
+    }
+
+    mostrarNotificaciones();
+  </script>
+</body>
+</html>

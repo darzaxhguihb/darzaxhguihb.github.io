@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NATURE | Inicio</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="inicio.html">Inicio</a>
+      <a href="carrito.html">Carrito</a>
+      <a href="favoritos.html">Favoritos</a>
+      <a href="notificaciones.html">Notificaciones</a>
+      <a href="mas.html">Más</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="productos" id="contenedor-productos"></main>
+
+  <script>
+    const productos = [
+      { nombre: "Té Verde", precio: 120, imagen: "non.jpg" },
+      { nombre: "Miel Natural", precio: 90, imagen: "non.jpg" },
+      { nombre: "Aceite Esencial de Lavanda", precio: 150, imagen: "non.jpg" },
+      { nombre: "Jabón Artesanal", precio: 70, imagen: "non.jpg" },
+      { nombre: "Infusión de Manzanilla", precio: 80, imagen: "non.jpg" },
+      { nombre: "Shampoo Orgánico", precio: 110, imagen: "non.jpg" }
+    ];
+
+    const contenedor = document.getElementById('contenedor-productos');
+
+    productos.forEach(producto => {
+      const card = document.createElement('div');
+      card.className = 'producto';
+      card.innerHTML = `
+        <img src="${producto.imagen}" alt="${producto.nombre}">
+        <h2>${producto.nombre}</h2>
+        <p>$${producto.precio}</p>
+        <button onclick='agregarAlCarrito(${JSON.stringify(producto)})'>Agregar al carrito</button>
+        <button onclick='agregarAFavoritos(${JSON.stringify(producto)})'>❤</button>
+      `;
+      contenedor.appendChild(card);
+    });
+
+    function agregarAlCarrito(producto) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.push(producto);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      agregarNotificacion(`Agregaste "${producto.nombre}" al carrito`);
+      alert(`${producto.nombre} agregado al carrito`);
+    }
+
+    function agregarAFavoritos(producto) {
+      let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+      favoritos.push(producto);
+      localStorage.setItem('favoritos', JSON.stringify(favoritos));
+      agregarNotificacion(`Añadiste "${producto.nombre}" a favoritos`);
+      alert(`${producto.nombre} añadido a favoritos`);
+    }
+
+    function agregarNotificacion(mensaje) {
+      let notificaciones = JSON.parse(localStorage.getItem('notificaciones')) || [];
+      const nueva = {
+        titulo: "Notificación de NATURE",
+        mensaje,
+        fecha: new Date().toLocaleString(),
+        leida: false
+      };
+      notificaciones.unshift(nueva);
+      localStorage.setItem('notificaciones', JSON.stringify(notificaciones));
+    }
+  </script>
+</body>
+</html>

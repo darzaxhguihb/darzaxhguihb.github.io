@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Usuarios Registrados | NATURE</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header>
+  <div class="nav-container">
+    <div class="nav-logo-container">
+      <img src="es.jpg" alt="Logo Nature" class="logo">
+      <h1 class="logo-title">NATURE</h1>
+    </div>
+    <nav>
+     <a href="inicio-sesion.html">Volver</a>
+    </nav>
+  </div>
+</header>
+
+
+  <main class="historial">
+    <ul id="lista-usuarios"></ul>
+  </main>
+
+  <script>
+    function mostrarUsuarios() {
+      const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      const lista = document.getElementById('lista-usuarios');
+      lista.innerHTML = "";
+
+      if (usuarios.length === 0) {
+        lista.innerHTML = "<li>No hay usuarios registrados aún.</li>";
+        return;
+      }
+
+      usuarios.forEach((usuario, index) => {
+        const li = document.createElement('li');
+        li.classList.add('usuario');
+        li.innerHTML = `
+          <p><strong>Usuario ${index + 1}</strong></p>
+          <p>Correo: ${usuario.correo}</p>
+          <p>Teléfono: ${usuario.telefono}</p>
+          <p>Dirección: ${usuario.direccion}</p>
+          <button class="eliminar" onclick="eliminarUsuario(${index})"> Eliminar</button>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    function eliminarUsuario(index) {
+      if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+        let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        usuarios.splice(index, 1);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        mostrarUsuarios();
+      }
+    }
+
+    // Mostrar los usuarios al cargar la página
+    mostrarUsuarios();
+  </script>
+</body>
+</html>

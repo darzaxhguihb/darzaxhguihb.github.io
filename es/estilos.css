@@ -1,0 +1,272 @@
+/* nature-extremo.css */
+/* -----------------------------------------------
+   Estilo visual orgánico, limpio y natural
+-------------------------------------------------*/
+
+/* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #EDE1D2, #CBB89D);
+  color: #412F26;
+  padding: 1rem;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Animaciones base */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Encabezado */
+header {
+  background: #F8F4ED;
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 22px;
+  text-align: center;
+  border: 1px solid #CBB89D;
+  box-shadow: 0 0 20px rgba(107, 117, 92, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+
+header h1 {
+  font-size: 2.4rem;
+  color: #5D2510;
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px rgba(130, 110, 80, 0.2);
+}
+
+/* Barra de navegación superior */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #EDE1D2;
+  padding: 15px 30px;
+  border-bottom: 1px solid #CBB89D;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(130, 110, 80, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.logo-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #6A6F4C;
+  text-shadow: 0 0 6px rgba(130, 110, 80, 0.3);
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #5D2510;
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: #F6EFE8;
+  box-shadow: 0 0 10px rgba(130, 110, 80, 0.1);
+  transition: all 0.3s ease;
+  font-weight: 600;
+  border: 1px solid #CBB89D;
+}
+
+nav a:hover {
+  background: #CBB89D;
+  color: white;
+  box-shadow: 0 0 18px rgba(128, 96, 68, 0.4);
+}
+
+/* Main content */
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+  animation: fadeIn 1.5s ease;
+}
+
+/* Secciones visuales */
+.productos, .lista, .opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.producto, .item-carrito, .item-favorito, .usuario, .metodo-guardado, .opcion, .notificacion {
+  background: #F8F4ED;
+  border: 1px solid #CBB89D;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(130, 110, 80, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: float 4s ease-in-out infinite;
+}
+
+.producto:hover,
+.opcion:hover,
+.item-carrito:hover,
+.item-favorito:hover,
+.usuario:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(128, 96, 68, 0.3);
+}
+
+/* Imágenes */
+.producto img,
+.item-carrito img,
+.item-favorito img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(128, 96, 68, 0.1);
+}
+
+/* Botones */
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #6A6F4C;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(130, 110, 80, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #5D2510;
+  color: #fff;
+  box-shadow: 0 0 20px #5D2510;
+  transform: scale(1.05);
+}
+
+/* Formularios */
+form {
+  background: #F6EFE8;
+  border: 1px solid #CBB89D;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(130, 110, 80, 0.15);
+  max-width: 450px;
+  margin: auto;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #412F26;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #412F26;
+  border: 1px solid #CBB89D;
+  transition: border 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+  outline: none;
+  border: 1px solid #6A6F4C;
+  box-shadow: 0 0 8px #CBB89D;
+}
+
+form button {
+  margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .productos,
+  .lista,
+  .opciones {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav a {
+    margin: 10px 0;
+  }
+}
+/* Opciones del menú en mas.html */
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  animation: fadeIn 1s ease;
+}
+
+.opciones a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #F6EFE8;
+  color: #5D2510;
+  font-weight: 600;
+  border: 2px solid #CBB89D;
+  border-radius: 18px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(128, 96, 68, 0.15);
+}
+
+.opciones a:hover {
+  background-color: #6A6F4C;
+  color: #ffffff;
+  box-shadow: 0 0 18px #806044;
+  transform: scale(1.08);
+}
